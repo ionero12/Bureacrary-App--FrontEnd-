@@ -94,8 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
               borderRadius: BorderRadius.circular(40),
               color: const Color(0xff293441),
             ),
-            width: 450, // setați lățimea dorită
-            height: 400, // setați înălțimea dorită
+            width: 850, // setați lățimea dorită
+            //height: 400, // setați înălțimea dorită
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     hintStyle: const TextStyle(color: Colors.white),
                     hintText: 'Selecteaza document',
+                    hintMaxLines: 3,
                   ),
                   value: _selectedOption,
                   onChanged: (newValue) {
@@ -216,9 +217,11 @@ class _MyOtherPageState extends State<MyOtherPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text(
+              Container(
+                padding: EdgeInsets.all(16.0),
+              child: Text(
                 'Acte necesare pentru eliberare ${widget.selectedOption}',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
@@ -226,34 +229,38 @@ class _MyOtherPageState extends State<MyOtherPage> {
                     fontSize: 30,
                     color: Colors.white),
               ),
+              ),
               Container(
+                padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   color: const Color.fromARGB(255, 137, 111, 78),
                 ),
                 //height: 700,
-                //width: 700,
+                //width: 600,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: List.generate(
                         _documents?.length ?? 0,
                         (index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0), //+
+                           //EdgeInsets.only(left: 8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${index + 1}. ${_documents?[index].name} (${_documents?[index].description})',
+                                '${index + 1}. ${_documents?[index].name} ',
                                 style: const TextStyle(
                                   fontFamily: 'Inria Serif',
                                   fontSize: 20,
                                   color: Colors.white,
                                 ),
+                                maxLines: 3,
                               ),
                               Text(
-                                'Price: ${_documents?[index].price} lei',
+                                'Price: ${_documents?[index].price}',
                                 style: const TextStyle(
                                   fontFamily: 'Inria Serif',
                                   fontSize: 18,

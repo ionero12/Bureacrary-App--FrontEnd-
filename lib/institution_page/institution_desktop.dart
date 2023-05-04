@@ -30,7 +30,7 @@ class _InstitutionDesktopState extends State<InstitutionDesktop> {
           // culoarea containerului
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Align(
                 alignment: AlignmentDirectional.center,
@@ -119,10 +119,11 @@ class _InstitutionDesktopState extends State<InstitutionDesktop> {
                       borderRadius: BorderRadius.circular(24.0),
                     ),
                     child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
+
                           child: Row(
                             //mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -193,7 +194,7 @@ class _InstitutionDesktopState extends State<InstitutionDesktop> {
                           ),
                         ),
                         //inchis container
-                        Flexible(
+                        Container(
                           child: Column(
                             //mainAxisAlignment: MainAxisAlignment.center,//cum sunt aliniate contact program si aia
                             //crossAxisAlignment: CrossAxisAlignment.start,
@@ -527,6 +528,7 @@ class _InstitutionDesktopState extends State<InstitutionDesktop> {
                   ),
                 ),
               ],
+              Image.asset('images/orase.png'),
               // Expanded(
               //   child: Row(
               //     crossAxisAlignment: CrossAxisAlignment.stretch,

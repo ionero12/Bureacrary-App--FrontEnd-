@@ -66,7 +66,9 @@ class _HomeState extends State<Home>{
       ),
       body: SingleChildScrollView(child: 
         Body(),
+        
       ),
+      
       bottomNavigationBar: const ButtomNavigationBar(),
     );
   }

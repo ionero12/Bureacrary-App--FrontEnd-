@@ -125,7 +125,7 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                               children: [
                                 Image.asset(
                                   'images/primaria.png',
-                                  width: 200,
+                                  width: 250,
                                   height: 200,
                                 ),
                               ],
@@ -171,7 +171,9 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                             )
                           ],
                         ),
-                        Column(
+                        Container(
+                          width: 350,
+                        child: Column(
                           children: <Widget>[
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -227,12 +229,17 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                                                 color: Colors.black,
                                                 size: 16,
                                               ),
-                                              Text(
+                                              Container(
+                                                width:200,
+                                              child: Text(
                                                 'Website: ${_institution!.website}',
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.black,
                                                 ),
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                              ),
                                               ),
                                             ],
                                           ),
@@ -412,12 +419,17 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                                                 color: Colors.black,
                                                 size: 16,
                                               ),
-                                              Text(
+                                              Container(
+                                                width: 200,
+                                              child: Text(
                                                 '${_institution!.address}',
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.black,
                                                 ),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                              ),
                                               ),
                                             ],
                                           ),
@@ -429,6 +441,7 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                               ],
                             ),
                           ],
+                        ),
                         ),
                       ],
                     ),

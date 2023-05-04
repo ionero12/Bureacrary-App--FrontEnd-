@@ -2,7 +2,7 @@ class Document {
   final int id;
   final String name;
   final String description;
-  final double price;
+  final String price;
   final int institutionId;
   final String path;
 
@@ -20,7 +20,7 @@ class Document {
       id: json['id'] ?? 0,
       name: json['name'] ?? '0',
       description: json['description'] ?? '0',
-      price: json['price'].toDouble() ?? 0,
+      price: json['price'] ?? '0',
       institutionId: json['institution_id'] ?? 0,
       path: json['path'] ?? '0',
     );
