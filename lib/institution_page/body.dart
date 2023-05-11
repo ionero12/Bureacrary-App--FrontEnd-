@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import './institution_mobile.dart';
 import './institution_desktop.dart';
-import 'institution.dart';
-import 'institution_service.dart';
+import 'models/institution.dart';
+import 'services/institution_service.dart';
 
 class Body extends StatelessWidget {
   @override
