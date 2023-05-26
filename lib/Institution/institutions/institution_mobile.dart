@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'models/institution.dart';
-import 'services/institution_service.dart';
+import '../Feedback_view.dart';
+import 'institution.dart';
+import 'institution_service.dart';
 
 class InstitutionMobile extends StatefulWidget {
+  const InstitutionMobile({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _InstitutionMobileState createState() => _InstitutionMobileState();
 }
 
 class _InstitutionMobileState extends State<InstitutionMobile> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  InstitutionService _institutionService = InstitutionService();
+  final InstitutionService
+  _institutionService = InstitutionService();
   Institution? _institution;
 
   @override
@@ -37,7 +42,7 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                 child: Container(
                   width: 500,
                   padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                   decoration: BoxDecoration(
                     color: const Color(0xff293441),
                     // culoarea băii de căutare
@@ -110,7 +115,7 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                   //alignment: AlignmentDirectional.center,
                   child: Container(
                     width: double.infinity,
-                    constraints: BoxConstraints(maxWidth: 700),
+                    constraints: const BoxConstraints(maxWidth: 700),
                     decoration: BoxDecoration(
                       border: Border.all(color: const Color(0xff896F4E)),
                       color: Colors.white,
@@ -145,7 +150,7 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                                     ),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: const Color(0xff896F4E),
+                                        backgroundColor: const Color(0xff896F4E),
                                         // aici setezi culoarea butonului
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
@@ -153,7 +158,7 @@ class _InstitutionMobileState extends State<InstitutionMobile> {
                                         ),
                                       ),
                                       onPressed: () {
-                                        // aici poți adăuga acțiunea pe care vrei să o facă butonul când este apăsat
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const FeedbackView()));
                                       },
                                       child: const Text(
                                         'Vezi Feedback', // aici poți seta textul butonului

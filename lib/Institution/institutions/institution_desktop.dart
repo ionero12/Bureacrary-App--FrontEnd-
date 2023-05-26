@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'models/institution.dart';
-import 'services/institution_service.dart';
+import '../Feedback_view.dart';
+import 'institution.dart';
+import 'institution_service.dart';
 
 class InstitutionDesktop extends StatefulWidget {
   @override
@@ -170,7 +171,7 @@ class _InstitutionDesktopState extends State<InstitutionDesktop> {
                                                 ),
                                               ),
                                               onPressed: () {
-                                                // aici poți adăuga acțiunea pe care vrei să o facă butonul când este apăsat
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const FeedbackView()));
                                               },
                                               child: const Text(
                                                 'Vezi Feedback',

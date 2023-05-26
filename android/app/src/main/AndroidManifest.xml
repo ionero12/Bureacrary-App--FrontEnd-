@@ -1,7 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.front_all_pages">
+    package="com.example.ip">
+    <!-- Camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- External storage read permission (for accessing gallery) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- External storage write permission (for saving captured images) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <application
-        android:label="front_all_pages"
+        android:label="ip"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

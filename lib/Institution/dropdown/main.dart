@@ -1,38 +1,33 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:front_all_pages/dropdown+documents_page/services/download_service.dart';
-import 'package:front_all_pages/dropdown+documents_page/services/login_service.dart';
-import 'package:front_all_pages/dropdown+documents_page/services/upload_service.dart';
+import 'package:ipApp/Institution/dropdown/services/download_service.dart';
+import 'package:ipApp/Institution/dropdown/services/login_service.dart';
+import 'package:ipApp/Institution/dropdown/services/starttask_service.dart';
+import 'package:ipApp/Institution/dropdown/services/upload_service.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Navigation/bottom_navigation_bar.dart';
+import '../../Navigation/ontop_navigation_bar.dart';
+import '../../ToDo/main.dart';
 import './models/document.dart';
 import 'models/tokenProvider.dart';
 import 'services/task_service.dart';
 import 'services/documents_service.dart';
 import 'package:flutter/material.dart';
-import './buttomNavigationBar.dart';
 import 'package:adaptive_navbar/adaptive_navbar.dart';
+import '../../Login/User.dart';
 
 void main() {
-  //runApp(const MyApp());
-
-  runApp(
-    ChangeNotifierProvider<TokenProvider>(
-      create: (_) => TokenProvider(),
-      child: MyApp(),
-    ),
-  );
+  runApp(const App2());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App2 extends StatelessWidget {
+  const App2({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String token = Provider.of<TokenProvider>(context).token;
-    //print('Token: $token');
     return const MaterialApp(
       title: 'My App',
       home: MyHomePage(),
@@ -51,18 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String? _selectedOption;
   final TasksService _tasksService = TasksService();
   late List<String> _options = [];
-  late String token1 = "lucian";
 
   @override
   void initState() {
-    super.initState();
-    _login().then((value) {
-      setState(() {
-        token1 = value; // Update the value of token1
-      });
-      //print("in main ultima" + token1);
+    super.initState();{
       _loadTasksNames();
-    });
+    };
   }
 
   Future<void> _loadTasksNames() async {
@@ -72,56 +61,47 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<String> _login() async {
-    try {
-      String ceva = await getToken();
-      //print("in login" + ceva);
-
-      return ceva;
-    } catch (e) {
-      return '0';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final sw = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AdaptiveNavBar(
-        screenWidth: sw,
-        backgroundColor: const Color(0xFF101C2B),
-        leading: Image.asset(
-          'images/logo-ip.png',
-          width: 50,
-          height: 50,
-        ),
-        navBarItems: [
-          NavBarItem(
-            text: "Home",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "Institution",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "Contact",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "My account",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-        ],
-      ),
+      appBar: const OnTopNavigationBar(),
+      // appBar: AdaptiveNavBar(
+      //   screenWidth: sw,
+      //   backgroundColor: const Color(0xFF101C2B),
+      //   leading: Image.asset(
+      //     'images/logo-ip.png',
+      //     width: 50,
+      //     height: 50,
+      //   ),
+      //   navBarItems: [
+      //     NavBarItem(
+      //       text: "Home",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //     NavBarItem(
+      //       text: "Institution",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //     NavBarItem(
+      //       text: "Contact",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //     NavBarItem(
+      //       text: "My account",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: Center(
           child: Container(
         //toata pagina
@@ -208,6 +188,8 @@ class MyOtherPage extends StatefulWidget {
 class _MyOtherPageState extends State<MyOtherPage> {
   final DocumentApi _documentApi = DocumentApi();
   late List<Document>? _documents = [];
+  final StartTask _startTask = StartTask();
+  late String _tododocuments;
   final FileUploader _fileUploader = FileUploader();
   final FileDownloader _fileDownloader = FileDownloader();
   bool isButtonVisible1 = true;
@@ -247,6 +229,14 @@ class _MyOtherPageState extends State<MyOtherPage> {
     });
   }
 
+  Future<void> _loadToDoDocuments(String username, String taskName) async {
+    final todo_documents= await _startTask.startTask(username, taskName);
+    print(todo_documents);
+    setState(() {
+      _tododocuments=todo_documents;
+    });
+  }
+
   Future<void> _loadExtraDocuments(String name) async {
     widget.nameOption=name;
     final documents = await _documentApi.getDocuments(name);
@@ -261,45 +251,46 @@ class _MyOtherPageState extends State<MyOtherPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xff293441),
-      appBar: AdaptiveNavBar(
-        screenWidth: sw,
-        backgroundColor: const Color(0xFF101C2B),
-        leading: Image.asset(
-          'images/logo-ip.png',
-          width: 50,
-          height: 50,
-        ),
-        navBarItems: [
-          NavBarItem(
-            text: "Home",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "Institution",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "Contact",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-          NavBarItem(
-            text: "My account",
-            onTap: () {
-              Navigator.pushNamed(context, "routeName");
-            },
-          ),
-        ],
-      ),
+      appBar: const OnTopNavigationBar(),
+      // appBar: AdaptiveNavBar(
+      //   screenWidth: sw,
+      //   backgroundColor: const Color(0xFF101C2B),
+      //   leading: Image.asset(
+      //     'images/logo-ip.png',
+      //     width: 50,
+      //     height: 50,
+      //   ),
+      //   navBarItems: [
+      //     NavBarItem(
+      //       text: "Home",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //     NavBarItem(
+      //       text: "Institution",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //     NavBarItem(
+      //       text: "Contact",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //     NavBarItem(
+      //       text: "My account",
+      //       onTap: () {
+      //         Navigator.pushNamed(context, "routeName");
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: SingleChildScrollView(
         child: Center(
           child: SizedBox(
-            height: 1200,
+            //height: 1200,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -353,7 +344,7 @@ class _MyOtherPageState extends State<MyOtherPage> {
                                       children: [
                                         Visibility(
                                           visible:
-                                              _documents?[index].file == '0',
+                                              _documents?[index].file == '0' && _documents?[index].path != '0',
                                           maintainSize: true,
                                           maintainAnimation: true,
                                           maintainState: true,
@@ -402,7 +393,9 @@ class _MyOtherPageState extends State<MyOtherPage> {
                                           ),
                                         ),
                                         const SizedBox(width: 16),
-                                          ElevatedButton(
+                                        Visibility(
+                                          visible: myUser.getRoles()=="ROLE_ADMIN",
+                                        child: ElevatedButton(
                                             onPressed: () {
                                               _uploadFile(_documents?[index].documentId ?? 0);
                                             },
@@ -415,6 +408,7 @@ class _MyOtherPageState extends State<MyOtherPage> {
                                             ),
                                             child: const Text('Upload'),
                                           ),
+                                        ),
                                       ],
                                     ),
                                   )
@@ -429,7 +423,13 @@ class _MyOtherPageState extends State<MyOtherPage> {
                           // Set padding from content above
                           child: ElevatedButton(
                             onPressed: () {
-                              // Button action goes here
+                              _loadToDoDocuments(myUser.getUsername(), widget.nameOption);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ToDoListPage(
+                                      TaskName: widget.selectedOption),
+                                ),
+                              );
                             },
                             style: ButtonStyle(
                               // Customize background color

@@ -1,6 +1,6 @@
 {
-    "name": "front_all_pages",
-    "short_name": "front_all_pages",
+    "name": "ip",
+    "short_name": "ip",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
